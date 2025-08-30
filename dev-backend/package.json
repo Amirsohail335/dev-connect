@@ -1,0 +1,17 @@
+{
+  "name": "dev-backend",
+  "version": "1.0.0",
+  "description": "dev backend",
+  "keywords": [
+    "js",
+    "node",
+    "js"
+  ],
+  "license": "ISC",
+  "author": "Amir Sohail",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  }
+}
