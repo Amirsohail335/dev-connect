@@ -4,12 +4,12 @@ const adminAuth = (req, res, next) => {
   const token = "xyz";
   const authorisedToken = token === "xyz";
   if (!authorisedToken) {
-    res.status(401).send("Unauthorised");
-  }else{
-    next()
+    res.status(401).send("Unauthorised Access");
+  } else {
+    next();
   }
 };
 
-module.exports= {
-    adminAuth
-}
+module.exports = {
+  adminAuth,
+};
