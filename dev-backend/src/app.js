@@ -4,6 +4,14 @@ const User = require("./models/user");
 
 const app = express();
 
+app.use(express.json())
+
+//Get user by email
+
+app.get("/user", (req,res)=>{
+    const email = req.body.email
+})
+
 app.post("/signup", async (req, res) => {
   const user = new User({
     firstName: "Ms",
