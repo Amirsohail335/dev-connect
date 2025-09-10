@@ -16,7 +16,7 @@ app.get("/user", async (req, res) => {
   try {
     const users = await User.find({ emailId: UserEmail });
     if (users.length == 0) {
-      res.send(403).send("User not found");
+      res.send(403).send("User not found!");
     } else {
       res.send(users);
     }
