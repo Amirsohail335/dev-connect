@@ -99,10 +99,10 @@ app.get("/profile", async (req, res) => {
 connectDB()
   .then(() => {
     console.log("Database is connected successfully...");
-    app.listen(3000, () => {
+    app.listen(30033, () => {
       console.log("Listening on port 3000");
     });
   })
   .catch((err) => {
-    console.log("Database cannot be connected!!");
+    console.log("Database cannot be connected!!!");
   });
