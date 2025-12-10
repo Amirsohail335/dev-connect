@@ -79,6 +79,9 @@ app.post("/login", async (req, res) => {
     // Compare password
     const isPasswordValid = await bcrypt.compare(password, user.password);
     if (!isPasswordValid) {
+      //Create a JWT token
+      const token = await jwt.sign({ _id: user._id }, "DEV@Tinder@790");
+      console.log(token);
       return res.status(400).send("Invalid credentials Password");
     }
 
@@ -94,6 +97,15 @@ app.post("/login", async (req, res) => {
 app.get("/profile", async (req, res) => {
   const cookies = req.cookies;
   console.log(cookies);
+
+  //Validate my token
+
+  const decodedMessage = await jwt.verify(token, "DEV@Tinder@790");
+
+  const { _id } = decodedMessage;
+
+  console.log("Logged In user is" + _id);
+
   res.send("Reading cookies");
 });
 
