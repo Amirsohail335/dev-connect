@@ -5,6 +5,7 @@ const { validationSignUpData } = require("./utils/validation");
 const bcrypt = require("bcrypt");
 const app = express();
 const cookiesParser = require("cookie-parser");
+const jwt = require("jsonwebtoken");
 
 app.use(express.json());
 app.use(cookiesParser());
