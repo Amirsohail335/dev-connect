@@ -99,7 +99,7 @@ app.get("/profile", async (req, res) => {
 connectDB()
   .then(() => {
     console.log("The Database is a connected successfully...");
-    app.listen(30033, () => {
+    app.listen(3000, () => {
       console.log("Listening on port 3000");
     });
   })
