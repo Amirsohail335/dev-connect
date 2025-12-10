@@ -73,7 +73,8 @@ app.post("/login", async (req, res) => {
     // Check if user exists
     const user = await User.findOne({ emailId: emailId });
     if (!user) {
-      return res.status(400).send("User not found");
+      // return res.status(400).send("User not found");
+      throw new Error("Invalid Credetials");
     }
 
     // Compare password
@@ -81,32 +82,52 @@ app.post("/login", async (req, res) => {
     if (!isPasswordValid) {
       //Create a JWT token
       const token = await jwt.sign({ _id: user._id }, "DEV@Tinder@790");
-      console.log(token);
-      return res.status(400).send("Invalid credentials Password");
+
+      //Add token to Cookies and send response back to user
+      res.cookie("token", token);
+      res.send("Login successful ✅");
+      // console.log(token);
+      // return res.status(400).send("Invalid credentials Password");
+    } else {
+      throw new Error("Invalid Credentials");
     }
 
     // Add token to the call
-    res.cookie("token", "asdajhdhwierhe8383fdfjdnvjnv");
+    // res.cookie("token", "asdajhdhwierhe8383fdfjdnvjnv");
 
-    res.send("Login successful ✅");
+    // res.send("Login successful ✅");
   } catch (error) {
     res.status(400).send("Error: " + error.message);
   }
 });
 
 app.get("/profile", async (req, res) => {
-  const cookies = req.cookies;
-  console.log(cookies);
+  try {
+    const cookies = req.cookies;
+    const { token } = cookies;
+    // console.log(cookies);
+    if (!token) {
+      throw new Error("Invalid Credentials");
+    }
 
-  //Validate my token
+    //Validate my token
 
-  const decodedMessage = await jwt.verify(token, "DEV@Tinder@790");
+    const decodedMessage = await jwt.verify(token, "DEV@Tinder@790");
 
-  const { _id } = decodedMessage;
+    const { _id } = decodedMessage;
 
-  console.log("Logged In user is" + _id);
+    console.log("Logged In user is" + _id);
 
-  res.send("Reading cookies");
+    const user = User.findById(_id);
+    if (!user) {
+      throw new Error("User Does not exist");
+    }
+
+    // res.send("Reading cookies");
+    res.send(user);
+  } catch (error) {
+    res.status(400).send("ERROR :" + error.message);
+  }
 });
 
 connectDB()
