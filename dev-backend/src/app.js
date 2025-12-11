@@ -7,6 +7,8 @@ const app = express();
 const cookiesParser = require("cookie-parser");
 const jwt = require("jsonwebtoken");
 
+const { userAuth } = require("./middlewares/auth");
+
 app.use(express.json());
 app.use(cookiesParser());
 
@@ -101,7 +103,7 @@ app.post("/login", async (req, res) => {
   }
 });
 
-app.get("/profile", async (req, res) => {
+app.get("/profile", userAuth, async (req, res) => {
   try {
     const cookies = req.cookies;
     const { token } = cookies;
