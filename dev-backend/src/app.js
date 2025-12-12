@@ -80,8 +80,8 @@ app.post("/login", async (req, res) => {
     }
 
     // Compare password
-    const isPasswordValid = await user.validatePassword(passwordInputByUser);
-    if (!isPasswordValid) {
+    const isPasswordValid = await user.validatePassword(password);
+    if (isPasswordValid) {
       const token = await user.getJWT();
       //Add token to Cookies and send response back to user
       res.cookie("token", token, {
@@ -89,7 +89,7 @@ app.post("/login", async (req, res) => {
       });
       res.send("Login successful ✅");
     } else {
-      throw new Error("Invalid Credentials");
+      throw new Error("Invalid Loginn Credentials");
     }
   } catch (error) {
     res.status(400).send("Error: " + error.message);
@@ -101,7 +101,7 @@ app.get("/profile", userAuth, async (req, res) => {
     const user = req.user;
     res.send(user);
   } catch (error) {
-    res.status(400).send("ERROR :" + error.message);
+    res.status(400).send("ERRORR :" + error.message);
   }
 });
 
